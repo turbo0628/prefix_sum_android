@@ -1,8 +1,6 @@
 import taichi as ti
 from taichi.lang.simt import block, subgroup
-import tempfile
-import argparse
-import math
+import os
 
 ti.init(arch = ti.vulkan)
 
@@ -52,7 +50,6 @@ def scan_add_inclusive(arr_in: ti.types.ndarray(ndim=1), in_beg: ti.i32,
         block.sync()
 
         # Put warp scan results to smem
-        # TODO replace smem with real smem when available
         if thread_id % WARP_SZ == WARP_SZ - 1:
             pad_shared[warp_id] = val
         block.sync()
@@ -80,6 +77,8 @@ if __name__ == "__main__":
     #save_dir = args.dir
     arch = ti.vulkan
     save_dir = "./prefix_sum_module"
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
     mod = ti.aot.Module(ti.vulkan)
 
     arr_a = ti.ndarray(ti.i32, 100)

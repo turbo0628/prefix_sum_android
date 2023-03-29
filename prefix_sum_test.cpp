@@ -18,7 +18,7 @@ int main()
   arr.read(arr_host);
   for (size_t i = 0; i < arr_host.size(); ++i)
   {
-   printf("%d vs %d\n", arr_host[i], i * (i + 1) / 2);
+   printf("%d vs %lu\n", arr_host[i], i * (i + 1) / 2);
    assert(arr_host[i] == i * (i + 1) / 2);
   }
   printf("Good!\n");
