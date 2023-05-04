@@ -4,8 +4,8 @@ import os
 
 ti.init(arch = ti.vulkan)
 
-WARP_SZ = 64
-BLOCK_SZ = 128
+WARP_SZ = 32
+BLOCK_SZ = 64
 arch = ti.vulkan
 
 @ti.kernel
@@ -34,6 +34,8 @@ elif arch == ti.vulkan or arch == ti.metal:
 @ti.kernel
 def scan_add_inclusive(arr_in: ti.types.ndarray(ndim=1), in_beg: ti.i32,
                        in_end: ti.i32, single_block: ti.i32):
+    
+    WARP_SZ = ti.simt.subgroup.group_size()
 
     ti.loop_config(block_dim=BLOCK_SZ)
     for i in range(in_beg, in_end):
