@@ -2,7 +2,7 @@
 
 using namespace soft2d;
 
-int PrefixSumExecutor::BLOCK_SZ = 128;
+int PrefixSumExecutor::BLOCK_SZ = 64;
 
 PrefixSumExecutor::PrefixSumExecutor(int sorting_length, ti::Runtime &runtime)
     : sorting_length_(sorting_length), runtime_(runtime) {
